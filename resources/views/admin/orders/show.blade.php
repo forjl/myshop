@@ -90,6 +90,9 @@
       @endif
       <!-- 订单发货结束 -->
       @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_PENDING)
+      @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS &&
+          ($order->type !== \App\Models\Order::TYPE_CROWDFUNDING ||
+            $order->items[0]->product->crowdfunding->status === \App\Models\CrowdfundingProduct::STATUS_SUCCESS))
         <tr>
           <td>退款状态：</td>
           <td colspan="2">{{ \App\Models\Order::$refundStatusMap[$order->refund_status] }}，理由：{{ $order->extra['refund_reason'] }}</td>
