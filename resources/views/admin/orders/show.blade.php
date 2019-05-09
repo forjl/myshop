@@ -3,7 +3,7 @@
     <h3 class="box-title">订单流水号：{{ $order->no }}</h3>
     <div class="box-tools">
       <div class="btn-group float-right" style="margin-right: 10px">
-        <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
+        <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-default"><i class="fa fa-list"></i> 列表</a>
       </div>
     </div>
   </div>
@@ -48,7 +48,6 @@
       <!-- 订单发货开始 -->
       <!-- 如果订单未发货，展示发货表单 -->
       @if($order->ship_status === \App\Models\Order::SHIP_STATUS_PENDING)
-        <!-- 加上这个判断条件 -->
         @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS)
         <tr>
           <td colspan="4">
@@ -77,7 +76,6 @@
             </form>
           </td>
         </tr>
-        <!-- 在 上一个 if 的 else 前放上 endif -->
         @endif
       @else
         <!-- 否则展示物流公司和物流单号 -->
@@ -90,9 +88,6 @@
       @endif
       <!-- 订单发货结束 -->
       @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_PENDING)
-      @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS &&
-          ($order->type !== \App\Models\Order::TYPE_CROWDFUNDING ||
-            $order->items[0]->product->crowdfunding->status === \App\Models\CrowdfundingProduct::STATUS_SUCCESS))
         <tr>
           <td>退款状态：</td>
           <td colspan="2">{{ \App\Models\Order::$refundStatusMap[$order->refund_status] }}，理由：{{ $order->extra['refund_reason'] }}</td>
@@ -141,7 +136,7 @@
             contentType: 'application/json',  // 请求的数据格式为 JSON
           });
         },
-        allowOutsideClick: () => !swal.isLoading()
+        allowOutsideClick: false
       }).then(function (ret) {
         // 如果用户点击了『取消』按钮，则不做任何操作
         if (ret.dismiss === 'cancel') {
@@ -156,7 +151,6 @@
         });
       });
     });
-
     // 同意 按钮的点击事件
     $('#btn-refund-agree').click(function() {
       swal({
@@ -176,7 +170,8 @@
             }),
             contentType: 'application/json',
           });
-        }
+        },
+        allowOutsideClick: false
       }).then(function (ret) {
         // 如果用户点击了『取消』按钮，则不做任何操作
         if (ret.dismiss === 'cancel') {
@@ -191,6 +186,5 @@
         });
       });
     });
-
   });
 </script>
