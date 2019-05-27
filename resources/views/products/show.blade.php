@@ -160,7 +160,11 @@
 @endsection
 
 @section('scriptsAfterJs')
-  <script>
+  <!-- 如果是秒杀商品并且尚未开始秒杀，则引入 momentjs 类库 -->
+@if($product->type == \App\Models\Product::TYPE_SECKILL && $product->seckill->is_before_start)
+  <script src="https://cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
+@endif
+<script>
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
       $('.sku-btn').click(function () {

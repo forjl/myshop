@@ -57,18 +57,31 @@ class UsersController extends Controller
             // 不在每一行后面展示查看按钮
             $actions->disableView();
             // 不在每一行后面展示删除按钮
-            $actions->disableDelete();
+            //$actions->disableDelete();
             // 不在每一行后面展示编辑按钮
             $actions->disableEdit();
         });
 
-        $grid->tools(function ($tools) {
-            // 禁用批量删除按钮
-            $tools->batch(function ($batch) {
-                $batch->disableDelete();
-            });
-        });
+        // $grid->tools(function ($tools) {
+        //     // 禁用批量删除按钮
+        //     $tools->batch(function ($batch) {
+        //         $batch->disableDelete();
+        //     });
+        // });
 
         return $grid;
+    }
+
+    protected function form()
+    {
+        $form = new Form(new User);
+
+        $form->text('name', 'Name');
+        $form->email('email', 'Email');
+        $form->datetime('email_verified_at', 'Email verified at')->default(date('Y-m-d H:i:s'));
+        $form->password('password', 'Password');
+        $form->text('remember_token', 'Remember token');
+
+        return $form;
     }
 }

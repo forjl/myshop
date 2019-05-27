@@ -12,12 +12,14 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->get('users', 'UsersController@index');
+    $router->delete('users/{id}', 'UsersController@destroy');
 
     $router->get('products', 'ProductsController@index');
     $router->get('products/create', 'ProductsController@create');
     $router->post('products', 'ProductsController@store');
     $router->get('products/{id}/edit', 'ProductsController@edit');
     $router->put('products/{id}', 'ProductsController@update');
+    $router->delete('products/{id}', 'ProductsController@destroy');
 
     $router->get('orders', 'OrdersController@index')->name('admin.orders.index');
     $router->get('orders/{order}', 'OrdersController@show')->name('admin.orders.show');
@@ -50,4 +52,5 @@ Route::group([
     $router->post('seckill_products', 'SeckillProductsController@store');
     $router->get('seckill_products/{id}/edit', 'SeckillProductsController@edit');
     $router->put('seckill_products/{id}', 'SeckillProductsController@update');
+    $router->delete('seckill_products/{id}', 'SeckillProductsController@destroy');
 });

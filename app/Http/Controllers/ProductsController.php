@@ -59,7 +59,7 @@ class ProductsController extends Controller
             }
         }
 
-        $products = $builder->paginate(16);
+        $products = $builder->paginate(12);
 
         return view('products.index', [
             'products' => $products,
@@ -126,7 +126,7 @@ class ProductsController extends Controller
 
     public function favorites(Request $request)
     {
-        $products = $request->user()->favoriteProducts()->paginate(16);
+        $products = $request->user()->favoriteProducts()->paginate(12);
 
         return view('products.favorites', ['products' => $products]);
     }

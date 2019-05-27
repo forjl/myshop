@@ -49,13 +49,13 @@ abstract class CommonProductsController extends Controller
 
         $grid->actions(function ($actions) {
             $actions->disableView();
-            $actions->disableDelete();
+            //$actions->disableDelete();
         });
-        $grid->tools(function ($tools) {
-            $tools->batch(function ($batch) {
-                $batch->disableDelete();
-            });
-        });
+        //$grid->tools(function ($tools) {
+           // $tools->batch(function ($batch) {
+                //$batch->disableDelete();
+            //});
+        //});
 
         return $grid;
     }
